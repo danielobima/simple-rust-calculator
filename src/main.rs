@@ -1,5 +1,5 @@
 use regex::Regex;
-use std::{io, process::exit};
+use std::io;
 
 const OPERATOR_TYPES: [char; 4] = ['/', '*', '+', '-'];
 
@@ -52,7 +52,7 @@ fn calculate(input: &String) -> Result<f64, &str> {
             }
         } else {
             let re = Regex::new(r"\d|\(\)").unwrap();
-            if re.is_match(&c.to_string().as_str()) {
+            if re.is_match(&c.to_string()) {
                 if last_was_operator {
                     nums.push(vec![c]);
                 } else {
@@ -61,8 +61,7 @@ fn calculate(input: &String) -> Result<f64, &str> {
                 }
                 last_was_operator = false;
             } else {
-                println!("Invalid number");
-                exit(0);
+                panic!("Invalid number");
             }
         }
     }
@@ -99,7 +98,7 @@ fn calculate(input: &String) -> Result<f64, &str> {
     Ok(result)
 }
 
-//5*9/15*7+3-10
+//Example calculation: 5*9/15*7+3-10
 fn main() {
     println!("Enter your calculation:");
 
